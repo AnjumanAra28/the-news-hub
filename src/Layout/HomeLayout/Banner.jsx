@@ -56,7 +56,7 @@ const Banner = () => {
                   <p className="py-6">
                   Article view: {article.views}
                   </p>
-                  <button className="btn btn-primary">View Details</button>
+                  <button  className="btn btn-outline border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white">View Details</button>
                 </div>
               </div>
             </div>
