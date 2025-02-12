@@ -5,6 +5,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import Loading from "../../Components/Loading";
 
 
 
@@ -24,7 +25,7 @@ const Banner = () => {
     },
   });
 
-  if (isPending) return "Loading...";
+  if (isPending) return <Loading></Loading>;
 
   if (error) return "An error has occurred: " + error.message;
   return (

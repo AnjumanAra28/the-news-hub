@@ -6,6 +6,7 @@ const image_hosting_key = import.meta.env.VITE_image_hosting_key;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 import React, { useState } from "react";
 import Select from "react-select";
+import Loading from "../../Components/Loading";
 
 const axiosPublic = useAxiosPublic();
 // const axiosSecure = useAxiosSecure()
@@ -17,8 +18,6 @@ const options = [
   { value: "finance", label: "Finance" },
   { value: "sports", label: "Sports" },
 ];
-
-
 
 const AddArticle = () => {
   const [selectedPublisher, setSelectedPublisher] = useState(null);
@@ -80,7 +79,6 @@ const AddArticle = () => {
     };
 
     const articleRes = await axiosPublic.post("/articles", articleData);
-    console.log(articleRes.data);
 
     if (articleRes.data.insertedId) {
       // show success popup
@@ -97,7 +95,7 @@ const AddArticle = () => {
     }
   };
 
-  if (isLoading) return <p>Loading publishers...</p>;
+  if (isLoading) return <Loading></Loading>;
   if (error) return <p>Error loading publishers: {error.message}</p>;
 
   return (
