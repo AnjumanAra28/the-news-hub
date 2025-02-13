@@ -1,7 +1,8 @@
-import { FaAd, FaBook, FaCalendar, FaEnvelope, FaHome, FaList, FaSearch, FaShoppingCart, FaUsers, FaUtensils } from "react-icons/fa";
+
+import { FaUser } from "react-icons/fa";
+import { MdWork } from "react-icons/md";
+import { PiArticle } from "react-icons/pi";
 import { NavLink, Outlet } from "react-router-dom";
-import useCart from "../hooks/useCart";
-import useAdmin from "../hooks/useAdmin";
 
 
 const Dashboard = () => {
@@ -15,16 +16,16 @@ const Dashboard = () => {
     return (
         <div className="flex">
             {/* dashboard side bar */}
-            <div className="w-64 min-h-screen bg-orange-400">
+            <div className="w-64 min-h-screen bg-orange-100">
                 <ul>
                     <li>
-                        <NavLink to={'/allUsers'}>All Users</NavLink>
+                        <NavLink to={'/dashboard/allUsers'}><FaUser /> All Users</NavLink>
                     </li>
                     <li>
-                        <NavLink to={'/allArticles'}>All Articles</NavLink>
+                        <NavLink to={'/dashboard/allArticles'}><PiArticle /> All Articles</NavLink>
                     </li>
                     <li>
-                        <NavLink to={'/addPublisher'}>Add Publisher</NavLink>
+                        <NavLink to={'/dashboard/addPublisher'}><MdWork /> Add Publisher</NavLink>
                     </li>
                 </ul>
             </div>

@@ -7,6 +7,9 @@ import Login from "../Pages/Login/Login";
 import ErrorPage from "../Components/ErrorPage";
 import SignUp from "../Pages/SignUp/SignUp";
 import Dashboard from "../Layout/Dashboard/Dashboard";
+import AllUsers from "../Layout/Dashboard/AllUsers";
+import AllArticles from "../Layout/Dashboard/AllArticles";
+import AddPublisher from "../Layout/Dashboard/AddPublisher";
 
 const router = createBrowserRouter([
   {
@@ -41,7 +44,21 @@ const router = createBrowserRouter([
   },
   {
     path:'/dashboard',
-    element:<Dashboard></Dashboard>
+    element:<Dashboard></Dashboard>,
+    children:[
+      {
+        path:'/dashboard/allUsers',
+        element:<AllUsers></AllUsers>
+      },
+      {
+        path:'/dashboard/allArticles',
+        element:<AllArticles></AllArticles>
+      },
+      {
+        path:'/dashboard/addPublisher',
+        element:<AddPublisher></AddPublisher>
+      },
+    ]
   }
 ]);
 
