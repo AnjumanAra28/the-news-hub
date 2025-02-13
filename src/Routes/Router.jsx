@@ -6,6 +6,7 @@ import Subscription from "../Pages/Subscription/Subscription";
 import Login from "../Pages/Login/Login";
 import ErrorPage from "../Components/ErrorPage";
 import SignUp from "../Pages/SignUp/SignUp";
+import Dashboard from "../Layout/Dashboard/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
     path:'*',
     element:<ErrorPage></ErrorPage>
   },
+  {
+    path:'/dashboard',
+    element:<Dashboard></Dashboard>
+  }
 ]);
 
 export default router;

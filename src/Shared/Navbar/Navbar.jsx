@@ -1,15 +1,51 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
+  const isAdmin = true;
+  const { user, logOut } = useAuth();
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => console.log(error));
+  };
+
   const links = (
     <>
       <li>
-        <NavLink to={'/'}>Home</NavLink>
+        <NavLink
+          to={"/"}
+          className={({ isActive }) =>
+            isActive ? "bg-orange-500 text-white" : ""
+          }
+        >
+          Home
+        </NavLink>
       </li>
       <li>
-        <NavLink to={'/addArticle'}>Add Article</NavLink>
+        <NavLink
+          to={"/addArticle"}
+          className={({ isActive }) =>
+            isActive ? "bg-orange-500 text-white" : ""
+          }
+        >
+          Add Article
+        </NavLink>
       </li>
+      {user && isAdmin && (
+        <li>
+          <NavLink
+            to={"/dashboard"}
+            className={({ isActive }) =>
+              isActive ? "bg-orange-500 text-white" : ""
+            }
+          >
+            Dashboard
+          </NavLink>
+        </li>
+      )}
     </>
   );
   return (
@@ -39,14 +75,43 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <a className="btn btn-ghost text-xl">The News Hub</a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-        <Link to={'/login'} className="btn">Login</Link>
-        <Link className="btn" to={'/signUp'}>Sign Up</Link>
+        {user ? (
+          <>
+            <img
+              src={user?.photoURL}
+              alt="User Profile"
+              className="w-10 h-10 rounded-full mr-2"
+            />
+            <button
+              onClick={handleLogOut}
+              className="btn btn-outline border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"
+            >
+              LogOut
+            </button>
+          </>
+        ) : (
+          <>
+            <Link
+              to={"/login"}
+              className="btn btn-outline border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white mr-2"
+            >
+              Login
+            </Link>
+
+            <Link
+              className="btn btn-outline border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"
+              to={"/signUp"}
+            >
+              Sign Up
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );

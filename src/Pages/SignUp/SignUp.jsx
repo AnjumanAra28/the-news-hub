@@ -6,10 +6,10 @@ import Swal from "sweetalert2";
 import SocialLogin from "../../Components/SocialLogin";
 
 const SignUp = () => {
-  const { createUser,updateUserProfile } = useAuth()
+  const { createUser, updateUserProfile } = useAuth();
   const [error, setError] = useState([]);
-  const navigate = useNavigate()
-  const axiosPublic = useAxiosPublic()
+  const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -37,30 +37,28 @@ const SignUp = () => {
     }
 
     createUser(email, password)
-      .then((result) => {
+      .then(async(result) => {
         setError("");
         console.log(result.user);
-        console.log(result.user.email,result.user.photoURL);
+        console.log(result.user.email, result.user.photoURL);
 
-
-        updateUserProfile(name,photo);
+        await updateUserProfile({ displayName: name, photoURL: photo });
         form.reset();
         const newUser = { name, email, photo };
 
-        axiosPublic.post('/users',newUser)
-        .then(res => {
-            if (res.data.insertedId) {
-                console.log('user added to the database')
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'User created successfully.',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                navigate('/');
-            }
-        })
+        axiosPublic.post("/users", newUser).then((res) => {
+          if (res.data.insertedId) {
+            console.log("user added to the database");
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "User created successfully.",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            navigate("/");
+          }
+        });
       })
       .catch((error) => {
         console.error(error);
@@ -74,7 +72,7 @@ const SignUp = () => {
 
   return (
     <div className="card bg-base-100 w-full mx-auto mt-10 max-w-sm lg:max-w-lg shrink-0 shadow-2xl mb-16">
-      <h1 className="text-4xl font-bold pt-3 my-3 text-center">Sign Up</h1>
+      <h1 className="text-4xl font-bold pt-3 mt-3 text-center">Sign Up</h1>
       <form onSubmit={handleSignUp} className="card-body">
         <div className="form-control">
           <label className="label">
@@ -125,9 +123,16 @@ const SignUp = () => {
           />
         </div>
         {error && <p className="text-red-500 text-sm my-2">{error}</p>}
-        <div className="form-control mt-4">
-          <button className="btn btn-outline border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white">SignUp</button>
-          <SocialLogin></SocialLogin>
+        <div className="flex justify-start gap-5 mb-2">   
+            <div className="form-control">
+              <button className="btn btn-outline border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white">
+                SignUp
+              </button>
+            </div>
+            <div className="form-control">
+              <SocialLogin></SocialLogin>
+            </div>
+          
         </div>
         <p className="text-xs">
           Already have an account? Please <Link to="/login">Login</Link>
