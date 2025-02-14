@@ -6,7 +6,6 @@ import { NavLink, Outlet } from "react-router-dom";
 
 
 const Dashboard = () => {
-    // const [cart] = useCart();
 
     // TODO: get isAdmin value from the database
     // const [isAdmin] = useAdmin();
@@ -16,9 +15,9 @@ const Dashboard = () => {
     return (
         <div className="flex">
             {/* dashboard side bar */}
-            <div className="w-64 min-h-screen bg-orange-100">
+            <div className="w-64 min-h-screen bg-gray-200">
                 <ul>
-                    <li>
+                    <li className="flex gap-3">
                         <NavLink to={'/dashboard/allUsers'}><FaUser /> All Users</NavLink>
                     </li>
                     <li>
