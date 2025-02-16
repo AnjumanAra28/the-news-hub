@@ -47,11 +47,9 @@ const AddPublisher = () => {
       };
   
 
-  // if (isLoading) return <Loading></Loading>;
-  // if (error) return <p>Error loading publishers: {error.message}</p>;
     return (
         <div className="max-w-md mx-auto mt-10 p-5 border rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold mb-4">Add Publisher</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center">Add Publisher</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* Publisher Name */}
           <div className="mb-4">
@@ -79,7 +77,7 @@ const AddPublisher = () => {
   
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+             className="btn btn-outline border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"
           >
             Add Publisher
           </button>

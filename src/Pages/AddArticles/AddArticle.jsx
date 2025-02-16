@@ -7,6 +7,7 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 import React, { useState } from "react";
 import Select from "react-select";
 import Loading from "../../Components/Loading";
+import useAuth from "../../hooks/useAuth";
 
 const axiosPublic = useAxiosPublic();
 // const axiosSecure = useAxiosSecure()
@@ -21,9 +22,9 @@ const options = [
 
 const AddArticle = () => {
   const [selectedPublisher, setSelectedPublisher] = useState(null);
-
   const [selectedTags, setSelectedTags] = useState([]);
-
+  const {user}=useAuth()
+ 
   const {
     data: publishers = [],
     isLoading,
@@ -76,6 +77,14 @@ const AddArticle = () => {
       publisher: data.publisher,
       description: data.description,
       image: res.data.data.display_url,
+      postedDate: new Date().toISOString(),
+      isPremium:false,
+      status:'pending',
+      declineReason : null,
+      views:0,
+      authorName:user.displayName,
+      authorPhoto:user.photoURL,
+      authorEmail:user.email,
     };
 
     const articleRes = await axiosPublic.post("/articles", articleData);

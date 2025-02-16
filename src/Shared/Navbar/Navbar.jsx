@@ -34,6 +34,16 @@ const Navbar = () => {
           Add Article
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to={"/allArticles"}
+          className={({ isActive }) =>
+            isActive ? "bg-orange-500 text-white" : ""
+          }
+        >
+          All Articles
+        </NavLink>
+      </li>
       {user && isAdmin && (
         <li>
           <NavLink

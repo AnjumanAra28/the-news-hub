@@ -8,8 +8,9 @@ import ErrorPage from "../Components/ErrorPage";
 import SignUp from "../Pages/SignUp/SignUp";
 import Dashboard from "../Layout/Dashboard/Dashboard";
 import AllUsers from "../Layout/Dashboard/AllUsers";
-import AllArticles from "../Layout/Dashboard/AllArticles";
+import AllArticles from "../Pages/AllArticles/AllArticles";
 import AddPublisher from "../Layout/Dashboard/AddPublisher";
+import Articles from "../Layout/Dashboard/Articles";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: "/subscription",
         element: <Subscription></Subscription>,
+      },
+      {
+        path:'/allArticles',
+        element:<AllArticles></AllArticles>
       },
     ],
   },
@@ -51,12 +56,12 @@ const router = createBrowserRouter([
         element:<AllUsers></AllUsers>
       },
       {
-        path:'/dashboard/allArticles',
-        element:<AllArticles></AllArticles>
-      },
-      {
         path:'/dashboard/addPublisher',
         element:<AddPublisher></AddPublisher>
+      },
+      {
+        path:'/dashboard/allArticles',
+        element:<Articles></Articles>
       },
     ]
   }
