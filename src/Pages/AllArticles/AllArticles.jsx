@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import useArticles from "../../hooks/useArticles";
+import { Link } from "react-router-dom";
+import Loading from "../../Components/Loading";
 
 const AllArticles = () => {
     const [search, setSearch] = useState("");
@@ -10,11 +12,11 @@ const AllArticles = () => {
 
     const { data: articles, isLoading, error } = useArticles({ search, publisher, tag });
 
-    if (isLoading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error.message}</p>;
-
+    if (isLoading) return <Loading></Loading>;
+    if (error) return <p>Error loading articles: {error.message}</p>;
+    
     return (
-        <div>
+        <div className="mb-16 mt-5">
             {/* Search & Filter Section */}
             <div className="mb-4">
                 <input
@@ -39,16 +41,16 @@ const AllArticles = () => {
             {/* Articles List */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {articles.map((article) => (
-                    <div key={article._id} className={`p-4 border rounded ${article.premium ? "bg-yellow-200" : "bg-white"}`}>
+                    <div key={article._id} className={`p-4 border rounded ${article.isPremium ? "border-orange-500 border-dashed border-2" : "bg-white"}`}>
                         <img src={article.image} alt={article.title} className="w-full h-40 object-cover mb-2" />
                         <h3 className="text-xl font-bold">{article.title}</h3>
                         <p className="text-sm text-gray-600">{article.publisher}</p>
                         <p className="mt-2">{article.description}</p>
                         <button
-                            className={`mt-2 p-2 w-full ${article.premium ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 text-white"}`}
-                            disabled={article.premium} // Disable if article is premium
+                            className={`mt-2 btn ${article.isPremium ? "bg-gray-400 cursor-not-allowed" : "btn-outline border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"}`}
+                            disabled={article.isPremium} 
                         >
-                            Details
+                           <Link  to={`/articleDetails/${article._id}`}> Details</Link>
                         </button>
                     </div>
                 ))}

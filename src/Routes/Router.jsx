@@ -11,6 +11,7 @@ import AllUsers from "../Layout/Dashboard/AllUsers";
 import AllArticles from "../Pages/AllArticles/AllArticles";
 import AddPublisher from "../Layout/Dashboard/AddPublisher";
 import Articles from "../Layout/Dashboard/Articles";
+import ArticleDetails from "../Pages/ArticleDetails/ArticleDetails";
 
 const router = createBrowserRouter([
   {
@@ -33,19 +34,11 @@ const router = createBrowserRouter([
         path:'/allArticles',
         element:<AllArticles></AllArticles>
       },
+      {
+        path:'/articleDetails/:id',
+        element:<ArticleDetails></ArticleDetails>
+      }
     ],
-  },
-  {
-    path: "/login",
-    element: <Login></Login>,
-  },
-  {
-    path: "/signUp",
-    element: <SignUp></SignUp>,
-  },
-  {
-    path:'*',
-    element:<ErrorPage></ErrorPage>
   },
   {
     path:'/dashboard',
@@ -64,6 +57,18 @@ const router = createBrowserRouter([
         element:<Articles></Articles>
       },
     ]
+  },
+  {
+    path: "/login",
+    element: <Login></Login>,
+  },
+  {
+    path: "/signUp",
+    element: <SignUp></SignUp>,
+  },
+  {
+    path:'*',
+    element:<ErrorPage></ErrorPage>
   }
 ]);
 

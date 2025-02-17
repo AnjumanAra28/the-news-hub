@@ -23,7 +23,7 @@ const Articles = () => {
     } = useQuery({
         queryKey: ["articles"],
         queryFn: async () => {
-            const res = await axiosPublic.get("/allArticles");
+            const res = await axiosPublic.get("/allArticles/admin");
             return res.data;
         },
     });
@@ -32,6 +32,7 @@ const Articles = () => {
     const handleApprove = async (articleId) => {
         const approveRes = await axiosPublic.patch(`allArticles/${articleId}`)
         if (approveRes.data.modifiedCount > 0) {
+            refetch()
             Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -47,12 +48,11 @@ const Articles = () => {
         setSelectedArticle(articleId);
         setIsModalOpen(true);
     };
-    const reasonData = reason;
+  
     const handlePostReason = async () => {
-        const reasonRes = await axiosPublic.patch(`allArticles/${selectedArticle}/decline`,reasonData)
-        console.log(reason);
-
+        const reasonRes = await axiosPublic.patch(`allArticles/${selectedArticle}/decline`,{reason})
         if (reasonRes.data.modifiedCount > 0) {
+            refetch()
             Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -61,7 +61,6 @@ const Articles = () => {
                 timer: 1500,
             });
         }
-        console.log(`Article ${selectedArticle} declined. Reason: ${reason}`);
         setIsModalOpen(false);
     };
 
@@ -94,7 +93,7 @@ const Articles = () => {
 
     // set article to premium
     const handleMakePremium = async (articleId) => {
-        const approveRes = await axiosPublic.patch(`allArticles/${articleId}`)
+        const approveRes = await axiosPublic.patch(`allArticles/${articleId}/premium`)
         if (approveRes.data.modifiedCount > 0) {
             Swal.fire({
                 position: "top-end",
@@ -104,7 +103,6 @@ const Articles = () => {
                 timer: 1500,
             });
         }
-        console.log(`Article ${articleId} marked as premium.`);
     };
 
 
