@@ -14,11 +14,11 @@ const AllArticles = () => {
 
     if (isLoading) return <Loading></Loading>;
     if (error) return <p>Error loading articles: {error.message}</p>;
-    
+
     return (
         <div className="mb-16 mt-5">
             {/* Search & Filter Section */}
-            <div className="mb-4">
+            <div className="mb-8">
                 <input
                     type="text"
                     placeholder="Search articles..."
@@ -41,7 +41,7 @@ const AllArticles = () => {
             {/* Articles List */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {articles.map((article) => (
-                    <div key={article._id} className={`p-4 border rounded ${article.isPremium ? "border-orange-500 border-dashed border-2" : "bg-white"}`}>
+                    <div key={article._id} className={`p-4 border rounded-lg  ${article.isPremium ? "border-orange-500 border-dashed border-2" : "bg-white"}`}>
                         <img src={article.image} alt={article.title} className="w-full h-40 object-cover mb-2" />
                         <h3 className="text-xl font-bold">{article.title}</h3>
                         <p className="text-sm text-gray-600">{article.publisher}</p>

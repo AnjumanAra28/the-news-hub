@@ -12,6 +12,9 @@ import AllArticles from "../Pages/AllArticles/AllArticles";
 import AddPublisher from "../Layout/Dashboard/AddPublisher";
 import Articles from "../Layout/Dashboard/Articles";
 import ArticleDetails from "../Pages/ArticleDetails/ArticleDetails";
+import PremiumArticles from "../Pages/PremiumArticles/PremiumArticles";
+import { MdYard } from "react-icons/md";
+import MyProfile from "../Pages/MyProfile/MyProfile";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +40,14 @@ const router = createBrowserRouter([
       {
         path:'/articleDetails/:id',
         element:<ArticleDetails></ArticleDetails>
+      },
+      {
+        path:'/premiumArticles',
+        element:<PremiumArticles></PremiumArticles>
+      },
+      {
+        path:'/myProfile',
+        element:<MyProfile></MyProfile>
       }
     ],
   },

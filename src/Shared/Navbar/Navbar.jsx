@@ -44,6 +44,16 @@ const Navbar = () => {
           All Articles
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to={"/premiumArticles"}
+          className={({ isActive }) =>
+            isActive ? "bg-orange-500 text-white" : ""
+          }
+        >
+          Premium Articles
+        </NavLink>
+      </li>
       {user && isAdmin && (
         <li>
           <NavLink
@@ -93,11 +103,14 @@ const Navbar = () => {
       <div className="navbar-end">
         {user ? (
           <>
-            <img
+          <Link to={'/myProfile'}>
+          <img
               src={user?.photoURL}
               alt="User Profile"
               className="w-10 h-10 rounded-full mr-2"
             />
+          </Link>
+           
             <button
               onClick={handleLogOut}
               className="btn btn-outline border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"
