@@ -44,13 +44,11 @@ const SignUp = () => {
 
         await updateUserProfile({ displayName: name, photoURL: photo });
         form.reset();
-        const newUser = { name, email, photo };
+        const newUser = { name, email, photo, premiumTaken:null,  role:null, };
 
         axiosPublic.post("/users", newUser).then((res) => {
           if (res.data.insertedId) {
-            console.log("user added to the database");
             Swal.fire({
-              position: "top-end",
               icon: "success",
               title: "User created successfully.",
               showConfirmButton: false,
