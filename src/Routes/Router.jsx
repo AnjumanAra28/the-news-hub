@@ -15,6 +15,7 @@ import ArticleDetails from "../Pages/ArticleDetails/ArticleDetails";
 import PremiumArticles from "../Pages/PremiumArticles/PremiumArticles";
 import MyProfile from "../Pages/MyProfile/MyProfile";
 import Payment from "../Pages/Payment/Payment";
+import PrivateRoutes from "./PrivateRoutes";
 
 const router = createBrowserRouter([
   {
@@ -27,11 +28,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/addArticle",
-        element: <AddArticle></AddArticle>,
+        element: <PrivateRoutes><AddArticle></AddArticle></PrivateRoutes>,
       },
       {
         path: "/subscription",
-        element: <Subscription></Subscription>,
+        element: <PrivateRoutes><Subscription></Subscription></PrivateRoutes>,
       },
       {
         path:'/allArticles',
@@ -39,23 +40,19 @@ const router = createBrowserRouter([
       },
       {
         path:'/articleDetails/:id',
-        element:<ArticleDetails></ArticleDetails>
+        element:<PrivateRoutes><ArticleDetails></ArticleDetails></PrivateRoutes>
       },
       {
         path:'/premiumArticles',
-        element:<PremiumArticles></PremiumArticles>
+        element:<PrivateRoutes><PremiumArticles></PremiumArticles></PrivateRoutes>
       },
       {
         path:'/myProfile',
-        element:<MyProfile></MyProfile>
-      },
-      {
-        path:'/subscription',
-        element:<Subscription></Subscription>
+        element:<PrivateRoutes><MyProfile></MyProfile></PrivateRoutes>
       },
       {
         path:'/payment',
-        element:<Payment></Payment>
+        element:<PrivateRoutes><Payment></Payment></PrivateRoutes>
       }
     ],
   },

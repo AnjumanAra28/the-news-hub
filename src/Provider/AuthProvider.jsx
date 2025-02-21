@@ -46,18 +46,22 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      
-        setUser(currentUser);
-      
+      if (!currentUser) {
+        setUser(null);
+        localStorage.removeItem("access-token");
+        setLoading(false);
+        return;
+    }
 
-      // ✅ Get and update premium status
+    setUser(currentUser)
+    setLoading(false)
+     
       const res = await axiosPublic.get(`/checkPremium/${currentUser.email}`);
       const isPremium = res.data.premium;
 
-      // ✅ Store premium status in user state
       setUser((prevUser) => ({
         ...prevUser,
-        isPremium, // Add premium status to the user object
+        isPremium, 
       }));
 
       //   if (currentUser) {
@@ -72,12 +76,12 @@ const AuthProvider = ({ children }) => {
       //   } else {
       //     // TODO: remove token (if token stored in the client side: Local storage, caching, in memory)
       //     localStorage.removeItem("access-token");
-      //     setLoading(false);
+      //  
       //   }
+     
     });
-    return () => {
-      return unsubscribe();
-    };
+    return () => unsubscribe();
+    
   }, []);
 
 
@@ -85,6 +89,7 @@ const AuthProvider = ({ children }) => {
     user,
     setUser,
     loading,
+    setLoading,
     createUser,
     signIn,
     googleSignIn,

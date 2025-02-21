@@ -1,5 +1,5 @@
 import { FaGoogle } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import useAuth from "../hooks/useAuth";
 
@@ -8,6 +8,7 @@ const SocialLogin = () => {
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
   console.log(user);
+  const location = useLocation()
 
   const handleGoogleSignIn = () => {
     googleSignIn().then((result) => {
@@ -19,7 +20,7 @@ const SocialLogin = () => {
         role:null,
       };
       axiosPublic.post("/users", userInfo).then((res) => {
-        navigate("/");
+        navigate(location.state?.from?.pathname || '/', { replace: true })
       });
     });
   };

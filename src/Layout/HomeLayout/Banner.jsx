@@ -40,7 +40,7 @@ const Banner = () => {
         {articles.map((article) => (
           <SwiperSlide key={article._id}>
         
-            <div className="hero bg-base-200 pt-28 pb-14">
+            <div className="hero bg-base-200 py-14 ">
               <div className="hero-content flex-col lg:flex-row">
                 <img
                   src={article.image}
