@@ -57,8 +57,6 @@ export default function MyProfile() {
             });
         }
 
-        console.log(userRes.data);
-
         closeModal();
     };
 

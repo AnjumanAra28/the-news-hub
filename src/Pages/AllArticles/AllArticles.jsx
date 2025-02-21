@@ -4,8 +4,10 @@ import { useState } from "react";
 import useArticles from "../../hooks/useArticles";
 import { Link } from "react-router-dom";
 import Loading from "../../Components/Loading";
+import useAuth from "../../hooks/useAuth";
 
 const AllArticles = () => {
+    const {user} = useAuth()
     const [search, setSearch] = useState("");
     const [publisher, setPublisher] = useState("");
     const [tag, setTag] = useState("");
@@ -45,10 +47,10 @@ const AllArticles = () => {
                         <img src={article.image} alt={article.title} className="w-full h-40 object-cover mb-2" />
                         <h3 className="text-xl font-bold">{article.title}</h3>
                         <p className="text-sm text-gray-600">{article.publisher}</p>
-                        <p className="mt-2">{article.description}</p>
+                        <p className="mt-2">{article.description.slice(0,100)}...</p>
                         <button
                             className={`mt-2 btn ${article.isPremium ? "bg-gray-400 cursor-not-allowed" : "btn-outline border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"}`}
-                            disabled={article.isPremium} 
+                            disabled={user?.premiumTaken === null} 
                         >
                            <Link  to={`/articleDetails/${article._id}`}> Details</Link>
                         </button>

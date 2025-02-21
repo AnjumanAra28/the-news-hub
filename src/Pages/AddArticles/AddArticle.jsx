@@ -23,8 +23,8 @@ const options = [
 const AddArticle = () => {
   const [selectedPublisher, setSelectedPublisher] = useState(null);
   const [selectedTags, setSelectedTags] = useState([]);
-  const {user}=useAuth()
- 
+  const { user } = useAuth()
+
   const {
     data: publishers = [],
     isLoading,
@@ -78,13 +78,13 @@ const AddArticle = () => {
       description: data.description,
       image: res.data.data.display_url,
       postedDate: new Date().toISOString(),
-      isPremium:false,
-      status:'pending',
-      declineReason : null,
-      views:0,
-      authorName:user.displayName,
-      authorPhoto:user.photoURL,
-      authorEmail:user.email,
+      isPremium: false,
+      status: 'pending',
+      declineReason: null,
+      views: 0,
+      authorName: user.displayName,
+      authorPhoto: user.photoURL,
+      authorEmail: user.email,
     };
 
     const articleRes = await axiosPublic.post("/articles", articleData);
@@ -92,7 +92,7 @@ const AddArticle = () => {
     if (articleRes.data.insertedId) {
       // show success popup
       reset();
-      setSelectedTags([]); 
+      setSelectedTags([]);
       setSelectedPublisher(null);
       Swal.fire({
         position: "top-end",

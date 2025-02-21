@@ -2,7 +2,9 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
+
 const Navbar = () => {
+  // const isAdmin = useAdmin()
   const isAdmin = true;
   const { user, logOut } = useAuth();
 
@@ -52,6 +54,16 @@ const Navbar = () => {
           }
         >
           Premium Articles
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to={"/MyArticles"}
+          className={({ isActive }) =>
+            isActive ? "bg-orange-500 text-white" : ""
+          }
+        >
+          My Articles
         </NavLink>
       </li>
       {user && isAdmin && (

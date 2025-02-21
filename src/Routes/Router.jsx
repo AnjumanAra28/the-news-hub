@@ -16,6 +16,7 @@ import PremiumArticles from "../Pages/PremiumArticles/PremiumArticles";
 import MyProfile from "../Pages/MyProfile/MyProfile";
 import Payment from "../Pages/Payment/Payment";
 import PrivateRoutes from "./PrivateRoutes";
+import MyArticles from "../Pages/MyArticles/MyArticles";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path:'/myProfile',
         element:<PrivateRoutes><MyProfile></MyProfile></PrivateRoutes>
+      },
+      {
+        path:'/myArticles',
+        element:<PrivateRoutes><MyArticles></MyArticles></PrivateRoutes>
       },
       {
         path:'/payment',
