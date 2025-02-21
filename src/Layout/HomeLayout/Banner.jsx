@@ -16,7 +16,6 @@ const Banner = () => {
     data: articles = [],
     isPending,
     error,
-    refetch,
   } = useQuery({
     queryKey: ["articles"],
     queryFn: async () => {
@@ -41,16 +40,15 @@ const Banner = () => {
         {articles.map((article) => (
           <SwiperSlide key={article._id}>
         
-            <div className="hero bg-base-200 p-14">
+            <div className="hero bg-base-200 pt-28 pb-14">
               <div className="hero-content flex-col lg:flex-row">
                 <img
                   src={article.image}
                   alt={article.title}
                   className="max-w-sm rounded-lg shadow-2xl"
-                  // onError={(e) => (e.target.src = "https://via.placeholder.com/300")} // Fallback if image fails
                 />
                 <div>
-                  <h1 className="text-5xl font-bold">{article.title}</h1>
+                  <h1 className="text-4xl font-bold">{article.title}</h1>
                   <p className="py-6">
                   {article.description}
                   </p>

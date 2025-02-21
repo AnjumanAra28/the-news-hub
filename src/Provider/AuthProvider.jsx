@@ -46,9 +46,9 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      if (currentUser) {
+      
         setUser(currentUser);
-      }
+      
 
       // ✅ Get and update premium status
       const res = await axiosPublic.get(`/checkPremium/${currentUser.email}`);
