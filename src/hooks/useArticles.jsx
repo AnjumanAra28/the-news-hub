@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "./useAxiosPublic";
 
-const axiosPublic = useAxiosPublic()
-const useArticles = (filters) => {
+const useArticles = (filters = {}) => {
+  const axiosPublic = useAxiosPublic()
+  
   return useQuery({
     queryKey: ["articles", filters], 
     queryFn: async () => {

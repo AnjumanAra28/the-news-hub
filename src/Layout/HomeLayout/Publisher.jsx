@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import SectionTitle from "../../Components/SectionTitle";
+import Loading from "../../Components/Loading";
 
 const Publisher = () => {
   const axiosPublic = useAxiosPublic();
@@ -17,7 +18,7 @@ const Publisher = () => {
     },
   });
 
-  if (isPending) return "Loading...";
+  if (isPending) return <Loading></Loading>;
   if (error) return "An error has occurred: " + error.message;
 
 
@@ -29,7 +30,7 @@ const Publisher = () => {
         <div key={item._id} className="card bg-base-100 shadow-xl">
         <div className="card-body flex flex-col items-center justify-center">
           <div className="">
-            <img src={item.logo} alt={item.name} />
+            <img className="w-40 h-40 rounded-full" src={item.logo} alt={item.name} />
           </div>
           <h2 className="card-title">{item.name}</h2>
         </div>

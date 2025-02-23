@@ -19,7 +19,6 @@ const PremiumArticles = () => {
 
     return (
         <div className="max-w-6xl mx-auto p-6">
-            <h2 className="text-2xl font-semibold mb-4">Premium Articles</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {articles.map((article) => (
                     <div key={article._id} className="card bg-base-100 shadow-xl p-4">
@@ -28,7 +27,7 @@ const PremiumArticles = () => {
                             <h3 className="text-xl font-bold">{article.title}</h3>
                             <p className="text-gray-500">Publisher: {article.publisher}</p>
                             <p className="text-sm mt-2">{article.description.slice(0, 100)}...</p>
-                            <Link to={`/articleDetails/${article._id}`} className="btn btn-primary mt-3">
+                            <Link to={`/articleDetails/${article._id}`} className="btn mt-3 btn-outline  border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white">
                                 Read More
                             </Link>
                         </div>

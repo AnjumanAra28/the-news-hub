@@ -9,6 +9,7 @@ import Select from "react-select";
 import Loading from "../../Components/Loading";
 import useAuth from "../../hooks/useAuth";
 
+
 const axiosPublic = useAxiosPublic();
 // const axiosSecure = useAxiosSecure()
 
@@ -109,7 +110,8 @@ const AddArticle = () => {
 
   return (
     <div className="w-11/12 mx-auto bg-base-200 rounded-xl shadow-xl my-10">
-      <form className="p-8" onSubmit={handleSubmit(onSubmit)}>
+      <h1 className="text-3xl flex justify-center pt-8">Add Article</h1>
+      <form className="pt-1 p-8" onSubmit={handleSubmit(onSubmit)}>
         {/* title */}
         <div className="form-control w-full my-2 ">
           <label className="label">
@@ -117,7 +119,7 @@ const AddArticle = () => {
           </label>
           <input
             type="text"
-            placeholder="title"
+            placeholder="Title"
             {...register("title", { required: true })}
             required
             className="input input-bordered w-full"
@@ -169,7 +171,7 @@ const AddArticle = () => {
           <textarea
             {...register("description")}
             className="textarea textarea-bordered h-24"
-            placeholder="Bio"
+            placeholder="Description"
           ></textarea>
         </div>
 
@@ -181,7 +183,7 @@ const AddArticle = () => {
           />
         </div>
 
-        <button className="btn btn-outline text-orange-600">Submit</button>
+        <button className="btn mt-1 btn-outline  border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white">Submit</button>
       </form>
     </div>
   );

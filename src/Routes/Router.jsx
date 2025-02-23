@@ -17,6 +17,7 @@ import MyProfile from "../Pages/MyProfile/MyProfile";
 import Payment from "../Pages/Payment/Payment";
 import PrivateRoutes from "./PrivateRoutes";
 import MyArticles from "../Pages/MyArticles/MyArticles";
+import UpdateMyArticle from "../Pages/UpdateMyArticle/UpdateMyArticle";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,12 @@ const router = createBrowserRouter([
         path:'/myArticles',
         element:<PrivateRoutes><MyArticles></MyArticles></PrivateRoutes>
       },
+      {
+        path:'/updateMyArticle/:id',
+        element:<PrivateRoutes><UpdateMyArticle></UpdateMyArticle></PrivateRoutes>,
+        loader: ({params}) => fetch(`http://localhost:5000/myArticles/${params.id}`)
+      },
+
       {
         path:'/payment',
         element:<PrivateRoutes><Payment></Payment></PrivateRoutes>

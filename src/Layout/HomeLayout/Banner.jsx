@@ -6,12 +6,13 @@ import "swiper/css/pagination";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import Loading from "../../Components/Loading";
+import { Link } from "react-router-dom";
 
 
 
 const Banner = () => {
   const axiosPublic = useAxiosPublic();
-  
+
   const {
     data: articles = [],
     isPending,
@@ -39,23 +40,25 @@ const Banner = () => {
       >
         {articles.map((article) => (
           <SwiperSlide key={article._id}>
-        
+
             <div className="hero bg-base-200 py-14 ">
-              <div className="hero-content flex-col lg:flex-row">
+              <div className="hero-content flex-col gap-10 lg:flex-row">
                 <img
                   src={article.image}
                   alt={article.title}
-                  className="max-w-sm rounded-lg shadow-2xl"
+                  className="w-80 h-48 md:h-64 lg:h-80 object-cover rounded-lg "
                 />
                 <div>
-                  <h1 className="text-4xl font-bold">{article.title}</h1>
+                  <h1 className="text-xl lg:text-3xl font-bold">{article.title}</h1>
                   <p className="py-6">
-                  {article.description}
+                    {article.description.slice(0, 400)}...
                   </p>
-                  <p className="py-6">
-                  Article view: {article.views}
+                  <p className="py-2">
+                    Article view: {article.views}
                   </p>
-                  <button  className="btn btn-outline border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white">View Details</button>
+                  <Link to={`/articleDetails/${article._id}`} className="btn mt-3 btn-outline  border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white">
+                    Read More
+                  </Link>
                 </div>
               </div>
             </div>

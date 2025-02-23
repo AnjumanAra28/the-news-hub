@@ -50,7 +50,7 @@ const AllArticles = () => {
                         <p className="mt-2">{article.description.slice(0,100)}...</p>
                         <button
                             className={`mt-2 btn ${article.isPremium ? "bg-gray-400 cursor-not-allowed" : "btn-outline border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"}`}
-                            disabled={user?.premiumTaken === null} 
+                            // disabled={!user?.premiumTaken} 
                         >
                            <Link  to={`/articleDetails/${article._id}`}> Details</Link>
                         </button>
