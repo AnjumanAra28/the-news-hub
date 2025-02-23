@@ -18,6 +18,7 @@ import Payment from "../Pages/Payment/Payment";
 import PrivateRoutes from "./PrivateRoutes";
 import MyArticles from "../Pages/MyArticles/MyArticles";
 import UpdateMyArticle from "../Pages/UpdateMyArticle/UpdateMyArticle";
+import Charts from "../Layout/Dashboard/Charts";
 
 const router = createBrowserRouter([
   {
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
     path:'/dashboard',
     element:<Dashboard></Dashboard>,
     children:[
+      {
+        path:'/dashboard',
+        element:<Charts></Charts>
+      },
       {
         path:'/dashboard/allUsers',
         element:<AllUsers></AllUsers>
