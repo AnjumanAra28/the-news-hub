@@ -4,6 +4,7 @@ import Publisher from './Publisher';
 import Plans from './Plans';
 import Statistics from './Statistics';
 import SubscriptionModal from '../../Components/SubscriptionModal';
+import Testimonials from './Testimonials';
 
 const Home = () => {
 
@@ -28,6 +29,7 @@ const Home = () => {
             <Publisher></Publisher>
             <Statistics></Statistics>
             <Plans></Plans>
+            <Testimonials></Testimonials>
 
 
             <SubscriptionModal show={showModal} onClose={handleCloseModal} />
