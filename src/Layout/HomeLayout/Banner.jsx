@@ -48,7 +48,7 @@ const Banner = () => {
                   alt={article.title}
                   className="w-80 h-48 md:h-64 lg:h-80 object-cover rounded-lg "
                 />
-                <div>
+                <div className="pr-10">
                   <h1 className="text-xl lg:text-3xl font-bold">{article.title}</h1>
                   <p className="py-6">
                     {article.description.slice(0, 400)}...

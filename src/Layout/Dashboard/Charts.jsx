@@ -12,5 +12,4 @@ const Charts = () => {
         </div>
     );
 };
-
 export default Charts;

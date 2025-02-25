@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import useAdmin from "../../hooks/useAdmin";
+import { ul } from "framer-motion/client";
 
 
 const Navbar = () => {
@@ -10,7 +12,7 @@ const Navbar = () => {
 
   const handleLogOut = () => {
     logOut()
-      .then(() => {})
+      .then(() => { })
       .catch((error) => console.log(error));
   };
 
@@ -46,7 +48,36 @@ const Navbar = () => {
           All Articles
         </NavLink>
       </li>
-      <li>
+
+      {
+        user && (
+
+          <ul className="flex justify-center items-center">
+            <li>
+              <NavLink
+                to={"/premiumArticles"}
+                className={({ isActive }) =>
+                  isActive ? "bg-orange-500 text-white" : ""
+                }
+              >
+                Premium Articles
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to={"/MyArticles"}
+                className={({ isActive }) =>
+                  isActive ? "bg-orange-500 text-white" : ""
+                }
+              >
+                My Articles
+              </NavLink>
+            </li>
+          </ul>
+        )
+      }
+
+      {/* <li>
         <NavLink
           to={"/premiumArticles"}
           className={({ isActive }) =>
@@ -65,7 +96,7 @@ const Navbar = () => {
         >
           My Articles
         </NavLink>
-      </li>
+      </li> */}
       {user && isAdmin && (
         <li>
           <NavLink
@@ -115,14 +146,14 @@ const Navbar = () => {
       <div className="navbar-end">
         {user ? (
           <>
-          <Link to={'/myProfile'}>
-          <img
-              src={user?.photoURL}
-              alt="User Profile"
-              className="w-10 h-10 rounded-full mr-2"
-            />
-          </Link>
-           
+            <Link to={'/myProfile'}>
+              <img
+                src={user?.photoURL}
+                alt="User Profile"
+                className="w-10 h-10 rounded-full mr-2"
+              />
+            </Link>
+
             <button
               onClick={handleLogOut}
               className="btn btn-outline border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"

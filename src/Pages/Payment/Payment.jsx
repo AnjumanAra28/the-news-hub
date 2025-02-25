@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Payment() {
     const { user } = useAuth();
@@ -12,7 +13,7 @@ export default function Payment() {
     const [loading, setLoading] = useState(false);
 
     const selectedDuration = searchParams.get("duration");
-
+    
     useEffect(() => {
         if (!selectedDuration) {
             Swal.fire("Error", "Invalid subscription plan!", "error");
@@ -28,7 +29,6 @@ export default function Payment() {
             setLoading(false);
 
             try {
-
                 const res = await axiosPublic.put(`/premiumUser/${user?.email}`, {
                     selectedDuration,
                 });
@@ -41,6 +41,7 @@ export default function Payment() {
                     });
 
                     navigate("/");
+                    refetch()
                 } else {
                     Swal.fire("Oops!", "Subscription update failed.", "error");
                 }

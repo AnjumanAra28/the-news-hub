@@ -8,6 +8,8 @@ import React, { useState } from "react";
 import Select from "react-select";
 import Loading from "../../Components/Loading";
 import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 
 const axiosPublic = useAxiosPublic();
@@ -25,6 +27,14 @@ const AddArticle = () => {
   const [selectedPublisher, setSelectedPublisher] = useState(null);
   const [selectedTags, setSelectedTags] = useState([]);
   const { user } = useAuth()
+
+  const { data: loggedUser = [], refetch } = useQuery({
+    queryKey: ['user'],
+    queryFn: async () => {
+        const res = await axiosPublic.get(`/user/${user.email}`);
+        return res.data;
+    }
+})
 
   const {
     data: publishers = [],
@@ -63,45 +73,64 @@ const AddArticle = () => {
   }));
 
   // form submit
+
   const onSubmit = async (data) => {
-    // image upload
-    const imageFile = { image: data.image[0] };
-    const res = await axiosPublic.post(image_hosting_api, imageFile, {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    });
-
-    const articleData = {
-      title: data.title,
-      tags: data.tags,
-      publisher: data.publisher,
-      description: data.description,
-      image: res.data.data.display_url,
-      postedDate: new Date().toISOString(),
-      isPremium: false,
-      status: 'pending',
-      declineReason: null,
-      views: 0,
-      authorName: user.displayName,
-      authorPhoto: user.photoURL,
-      authorEmail: user.email,
-    };
-
-    const articleRes = await axiosPublic.post("/articles", articleData);
-
-    if (articleRes.data.insertedId) {
-      // show success popup
-      reset();
-      setSelectedTags([]);
-      setSelectedPublisher(null);
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: `Article is added to the database.`,
-        showConfirmButton: false,
-        timer: 1500,
+    try {
+      // Image upload
+      const imageFile = { image: data.image[0] };
+      const res = await axiosPublic.post(image_hosting_api, imageFile, {
+        headers: { "content-type": "multipart/form-data" },
       });
+  
+      // Article Data
+      const articleData = {
+        title: data.title,
+        tags: data.tags,
+        publisher: data.publisher,
+        description: data.description,
+        image: res.data.data.display_url,
+        postedDate: new Date().toISOString(),
+        isPremium: false,
+        status: "pending",
+        declineReason: null,
+        views: 0,
+        authorName: user.displayName,
+        authorPhoto: user.photoURL,
+        authorEmail: user.email,
+      };
+  
+   
+      const articleRes = await axiosPublic.post("/articles", articleData);
+  
+      if (articleRes.data.insertedId) {
+        reset();
+        setSelectedTags([]);
+        setSelectedPublisher(null);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Article added successfully!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        refetch()
+      }
+    } catch (error) {
+      console.error("Error adding article:", error);
+    
+      if (error.response && error.response.status === 403) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message, 
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Something went wrong!",
+          text: "Failed to add article. Please try again.",
+        });
+      }
     }
   };
 
@@ -183,7 +212,11 @@ const AddArticle = () => {
           />
         </div>
 
-        <button className="btn mt-1 btn-outline  border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white">Submit</button>
+        <button className="btn mt-1 btn-outline  border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white mr-3">Submit</button>
+        {
+          loggedUser.premiumTaken?<></>:<><Link className="btn mt-1 btn-outline  border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white" to={'/subscription'}>Subscribe To Add</Link></>
+        }
+       
       </form>
     </div>
   );

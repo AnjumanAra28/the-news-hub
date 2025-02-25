@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../Components/Loading";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
 import SectionTitle from "../../Components/SectionTitle";
 import { Chart } from "react-google-charts";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const PieCharts = () => {
-    const axiosPublic = useAxiosPublic()
+    const axiosSecure = useAxiosSecure()
 
     const {
         data: articles = [],
@@ -14,7 +14,7 @@ const PieCharts = () => {
     } = useQuery({
         queryKey: ["articles"],
         queryFn: async () => {
-            const res = await axiosPublic.get("/allArticles/admin");
+            const res = await axiosSecure.get("/allArticles/admin/pieCharts");
             return res.data;
         },
     });

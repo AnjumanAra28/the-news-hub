@@ -5,6 +5,8 @@ import Plans from './Plans';
 import Statistics from './Statistics';
 import SubscriptionModal from '../../Components/SubscriptionModal';
 import Testimonials from './Testimonials';
+import Faq from './Faq';
+import { Helmet } from 'react-helmet-async';
 
 const Home = () => {
 
@@ -13,23 +15,28 @@ const Home = () => {
     // Show modal after 10 seconds
     useEffect(() => {
         const timer = setTimeout(() => {
-            setShowModal(true); 
+            setShowModal(true);
         }, 10000);
 
-        return () => clearTimeout(timer); 
-    }, []); 
+        return () => clearTimeout(timer);
+    }, []);
 
     const handleCloseModal = () => {
-        setShowModal(false); 
+        setShowModal(false);
     };
 
     return (
         <div>
+            <Helmet>
+                <title>News Hub | Home</title>
+            </Helmet>
+
             <Banner></Banner>
             <Publisher></Publisher>
             <Statistics></Statistics>
             <Plans></Plans>
             <Testimonials></Testimonials>
+            <Faq></Faq>
 
 
             <SubscriptionModal show={showModal} onClose={handleCloseModal} />

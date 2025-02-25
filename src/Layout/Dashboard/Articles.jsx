@@ -1,36 +1,48 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
 import Loading from "../../Components/Loading";
 import { FcApprove, FcDisapprove } from "react-icons/fc";
 import { MdDelete, MdWorkspacePremium } from "react-icons/md";
 import Modal from "../../Components/Modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 
 
 const Articles = () => {
-    const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
     const [selectedArticle, setSelectedArticle] = useState(null);
     const [reason, setReason] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const [page, setPage] = useState(1); 
+    const [limit] = useState(5); 
+
     const {
-        data: articles = [],
+        data: { articles = [], totalArticles = 0 },
         isLoading,
         error,
         refetch
     } = useQuery({
-        queryKey: ["articles"],
+        queryKey: ["articles",],
         queryFn: async () => {
-            const res = await axiosPublic.get("/allArticles/admin");
+            const res = await axiosSecure.get(`/allArticles/admin?page=${page}&limit=${limit}`);
             return res.data;
         },
     });
+    
+    const totalPages = Math.ceil(totalArticles / limit);
+
+    const handlePage = (page)=>{
+        setPage(page)
+        refetch()
+    }
+
+
 
     // approve function
     const handleApprove = async (articleId) => {
-        const approveRes = await axiosPublic.patch(`allArticles/${articleId}`)
+        const approveRes = await axiosSecure.patch(`allArticles/${articleId}`)
         if (approveRes.data.modifiedCount > 0) {
             refetch()
             Swal.fire({
@@ -48,9 +60,9 @@ const Articles = () => {
         setSelectedArticle(articleId);
         setIsModalOpen(true);
     };
-  
+
     const handlePostReason = async () => {
-        const reasonRes = await axiosPublic.patch(`allArticles/${selectedArticle}/decline`,{reason})
+        const reasonRes = await axiosSecure.patch(`allArticles/${selectedArticle}/decline`, { reason })
         if (reasonRes.data.modifiedCount > 0) {
             refetch()
             Swal.fire({
@@ -76,7 +88,7 @@ const Articles = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosPublic.delete(`/allArticles/${articleId}`)
+                axiosSecure.delete(`/allArticles/${articleId}`)
                     .then(res => {
                         if (res.data.deletedCount > 0) {
                             refetch();
@@ -93,8 +105,9 @@ const Articles = () => {
 
     // set article to premium
     const handleMakePremium = async (articleId) => {
-        const approveRes = await axiosPublic.patch(`allArticles/${articleId}/premium`)
+        const approveRes = await axiosSecure.patch(`allArticles/${articleId}/premium`)
         if (approveRes.data.modifiedCount > 0) {
+            refetch()
             Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -108,6 +121,7 @@ const Articles = () => {
 
     if (isLoading) return <Loading></Loading>;
     if (error) return <p>Error loading articles: {error.message}</p>;
+    
     return (
         <div>
             <div className="overflow-x-auto">
@@ -174,6 +188,25 @@ const Articles = () => {
                         ))}
                     </tbody>
                 </table>
+            </div>
+
+            {/* Pagination controls */}
+            <div className="flex justify-center items-center mt-4">
+                <button
+                    disabled={page === 1}
+                    onClick={() => handlePage(page - 1)}
+                    className="btn btn-outline mr-2"
+                >
+                    Prev
+                </button>
+                <span>Page {page} of {totalPages}</span>
+                <button
+                    disabled={page === totalPages}
+                    onClick={() => handlePage(page + 1)}
+                    className="btn btn-outline ml-2"
+                >
+                    Next
+                </button>
             </div>
 
             {isModalOpen && (

@@ -1,9 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import CountUp from "react-countup";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import SectionTitle from "../../Components/SectionTitle";
-import { div } from "framer-motion/client";
+
 
 const Statistics = () => {
     const axiosPublic = useAxiosPublic();

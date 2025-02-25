@@ -21,7 +21,6 @@ export default function MyProfile() {
         }
     })
 
-    console.log(loggedUser);
     // Open Modal & Pre-Fill Data
     const openModal = () => {
         setName(user?.displayName || "");
@@ -29,7 +28,6 @@ export default function MyProfile() {
         setIsModalOpen(true);
     };
 
-    console.log(user);
     // Close Modal
     const closeModal = () => {
         setIsModalOpen(false);
@@ -51,7 +49,7 @@ export default function MyProfile() {
             Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: `Article is added to the database.`,
+                title: `Your is is being updated.`,
                 showConfirmButton: false,
                 timer: 1500,
             });
@@ -80,7 +78,7 @@ export default function MyProfile() {
             </motion.div>
 
             {/* Edit Profile Button */}
-            <button className="btn btn-primary mt-4 w-full" onClick={openModal}>
+            <button className="btn btn-outline text-orange-500  mt-4 w-full" onClick={openModal}>
                 Edit Profile
             </button>
 
