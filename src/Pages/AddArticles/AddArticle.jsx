@@ -81,7 +81,7 @@ const AddArticle = () => {
     try {
       // Image upload
       const imageFile = { image: data.image[0] };
-      const res = await axiosPublic.post(image_hosting_api, imageFile, {
+      const res = await axiosSecure.post(image_hosting_api, imageFile, {
         headers: { "content-type": "multipart/form-data" },
       });
   

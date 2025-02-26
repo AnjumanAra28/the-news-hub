@@ -53,7 +53,7 @@ const [isAdmin] = useAdmin()
       {
         user && (
 
-          <ul className="flex justify-center items-center">
+          <ul className="flex flex-col md:flex-row  justify-center items-center">
             <li>
               <NavLink
                 to={"/premiumArticles"}

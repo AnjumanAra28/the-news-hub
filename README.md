@@ -2,7 +2,7 @@
 
 A dynamic and feature-rich Newspaper website built using React, Firebase, React Router, Node.js, Express, and MongoDB. The platform provides an intuitive and engaging user experience, allowing users to submit, read, and subscribe to premium content while admins manage content seamlessly.
 
-## Live Demo --  "https://bring-it-back-1534d.firebaseapp.com" , --"https://bring-it-back-1534d.web.app"
+## Live Demo -- https://the-news-hub-5f6bb.web.app
             
 ## Key Features
 
