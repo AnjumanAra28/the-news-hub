@@ -10,7 +10,7 @@ const UpdateMyArticle = () => {
   const {title, _id} = useLoaderData()
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
-  console.log(_id);
+  // console.log(_id);
 
    // Fetch current article data
    const { data: article, isLoading, error } = useQuery({
@@ -20,7 +20,7 @@ const UpdateMyArticle = () => {
       return res.data;
     }
   });
-  console.log(article);
+  // console.log(article);
 
 
 

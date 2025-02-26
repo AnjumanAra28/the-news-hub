@@ -39,8 +39,8 @@ const SignUp = () => {
     createUser(email, password)
       .then(async(result) => {
         setError("");
-        console.log(result.user);
-        console.log(result.user.email, result.user.photoURL);
+        // console.log(result.user);
+        // console.log(result.user.email, result.user.photoURL);
 
         await updateUserProfile({ displayName: name, photoURL: photo });
         form.reset();

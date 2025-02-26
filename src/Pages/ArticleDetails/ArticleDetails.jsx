@@ -19,7 +19,7 @@ const ArticleDetails = () => {
 
     const handleViewCount = async () => {
         await axiosPublic.patch(`/allArticles/${id}/views`);
-        console.log(`View count updated for article ${id}`);
+        // console.log(`View count updated for article ${id}`);
     };
 
     useEffect(() => {

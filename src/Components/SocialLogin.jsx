@@ -7,7 +7,7 @@ const SocialLogin = () => {
   const { googleSignIn ,user } = useAuth();
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
-  console.log(user);
+  // console.log(user);
   const location = useLocation()
 
   const handleGoogleSignIn = () => {
