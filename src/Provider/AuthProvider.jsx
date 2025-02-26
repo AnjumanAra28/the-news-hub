@@ -48,41 +48,33 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (!currentUser) {
         setUser(null);
-        localStorage.removeItem("access-token");
         setLoading(false);
         return;
     }
-
     setUser(currentUser)
-    setLoading(false)
-     
+        if (currentUser) {
+          // get token and store client
+          const userInfo = { email: currentUser.email };
+          axiosPublic.post("/jwt", userInfo).then((res) => {
+            if (res.data.token) {
+              localStorage.setItem("access-token", res.data.token);
+              setLoading(false);
+            }
+          });
+        } else {
+          localStorage.removeItem("access-token");
+          setLoading(false)
+        }
       const res = await axiosPublic.get(`/checkPremium/${currentUser.email}`);
       const isPremium = res.data.premium;
-
       setUser((prevUser) => ({
         ...prevUser,
         isPremium, 
       }));
-
-      //   if (currentUser) {
-      //     // get token and store client
-      //     const userInfo = { email: currentUser.email };
-      //     axiosPublic.post("/jwt", userInfo).then((res) => {
-      //       if (res.data.token) {
-      //         localStorage.setItem("access-token", res.data.token);
-      //         setLoading(false);
-      //       }
-      //     });
-      //   } else {
-      //     // TODO: remove token (if token stored in the client side: Local storage, caching, in memory)
-      //     localStorage.removeItem("access-token");
-      //  
-      //   }
-     
     });
     return () => unsubscribe();
     
-  }, []);
+  }, [axiosPublic]);
 
 
   const authInfo = {

@@ -1,15 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { Chart } from "react-google-charts";
 import SectionTitle from "../../Components/SectionTitle";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const UserStats = () => {
-    const axiosSecure = useAxiosSecure()
+    const axiosPublic = useAxiosPublic()
 
     const { data: stats = {}, isLoading, error } = useQuery({
         queryKey: ["userStats"],
         queryFn: async () => {
-            const res = await axiosSecure.get("/user-stats");
+            const res = await axiosPublic.get("/user-stats");
             return res.data;
         }
     });

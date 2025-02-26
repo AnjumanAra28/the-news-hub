@@ -1,15 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { Link } from "react-router-dom";
 import Loading from "../../Components/Loading";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const PremiumArticles = () => {
-    const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
 
     const { data: articles = [], isLoading, error } = useQuery({
         queryKey: ["premiumArticles"],
         queryFn: async () => {
-            const res = await axiosPublic.get("/premiumArticles"); 
+            const res = await axiosSecure.get("/premiumArticles"); 
             return res.data;
         },
     });

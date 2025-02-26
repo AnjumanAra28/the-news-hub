@@ -14,31 +14,17 @@ const Articles = () => {
     const [selectedArticle, setSelectedArticle] = useState(null);
     const [reason, setReason] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
+    
 
-    const [page, setPage] = useState(1); 
-    const [limit] = useState(5); 
-
-    const {
-        data: { articles = [], totalArticles = 0 },
-        isLoading,
-        error,
-        refetch
-    } = useQuery({
-        queryKey: ["articles",],
+    const { data, isLoading, error, refetch } = useQuery({
+        queryKey: ["articles"],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/allArticles/admin?page=${page}&limit=${limit}`);
+            const res = await axiosSecure.get('/allArticles/admin');
             return res.data;
         },
     });
-    
-    const totalPages = Math.ceil(totalArticles / limit);
 
-    const handlePage = (page)=>{
-        setPage(page)
-        refetch()
-    }
-
-
+    const articles = data || [];
 
     // approve function
     const handleApprove = async (articleId) => {
@@ -188,25 +174,6 @@ const Articles = () => {
                         ))}
                     </tbody>
                 </table>
-            </div>
-
-            {/* Pagination controls */}
-            <div className="flex justify-center items-center mt-4">
-                <button
-                    disabled={page === 1}
-                    onClick={() => handlePage(page - 1)}
-                    className="btn btn-outline mr-2"
-                >
-                    Prev
-                </button>
-                <span>Page {page} of {totalPages}</span>
-                <button
-                    disabled={page === totalPages}
-                    onClick={() => handlePage(page + 1)}
-                    className="btn btn-outline ml-2"
-                >
-                    Next
-                </button>
             </div>
 
             {isModalOpen && (

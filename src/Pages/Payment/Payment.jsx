@@ -13,7 +13,7 @@ export default function Payment() {
     const [loading, setLoading] = useState(false);
 
     const selectedDuration = searchParams.get("duration");
-    
+
     useEffect(() => {
         if (!selectedDuration) {
             Swal.fire("Error", "Invalid subscription plan!", "error");
@@ -39,9 +39,9 @@ export default function Payment() {
                         title: "Payment Successful!",
                         text: `You are now a premium user for ${selectedDuration}.`,
                     });
-
+                   
                     navigate("/");
-                    refetch()
+        
                 } else {
                     Swal.fire("Oops!", "Subscription update failed.", "error");
                 }

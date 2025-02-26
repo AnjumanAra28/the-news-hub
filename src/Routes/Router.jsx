@@ -19,6 +19,7 @@ import PrivateRoutes from "./PrivateRoutes";
 import MyArticles from "../Pages/MyArticles/MyArticles";
 import UpdateMyArticle from "../Pages/UpdateMyArticle/UpdateMyArticle";
 import Charts from "../Layout/Dashboard/Charts";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -71,7 +72,7 @@ const router = createBrowserRouter([
   },
   {
     path:'/dashboard',
-    element:<Dashboard></Dashboard>,
+    element:<AdminRoute><Dashboard></Dashboard></AdminRoute>,
     children:[
       {
         path:'/dashboard',

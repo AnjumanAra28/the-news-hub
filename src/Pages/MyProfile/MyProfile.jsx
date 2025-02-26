@@ -89,7 +89,7 @@ export default function MyProfile() {
                         initial={{ opacity: 0, y: -50 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="modal-box"
+                        className="modal-box  mt-10"
                     >
                         <h3 className="font-bold text-lg">Update Profile</h3>
                         <form onSubmit={handleUpdate} className="space-y-4 mt-4">
@@ -108,7 +108,7 @@ export default function MyProfile() {
                                 onChange={(e) => setPhoto(e.target.value)}
                             />
                             <div className="flex justify-end space-x-2 mt-4">
-                                <button type="submit" className="btn btn-primary">
+                                <button type="submit" className="btn btn-outline bg-orange-500">
                                     Save
                                 </button>
                                 <button type="button" className="btn" onClick={closeModal}>

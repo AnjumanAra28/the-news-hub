@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 
 
 const axiosPublic = useAxiosPublic();
-// const axiosSecure = useAxiosSecure()
+const axiosSecure = useAxiosSecure()
 
 const options = [
   { value: "technology", label: "Technology" },
@@ -28,6 +28,7 @@ const AddArticle = () => {
   const [selectedTags, setSelectedTags] = useState([]);
   const { user } = useAuth()
 
+  // get logged in user to check premium 
   const { data: loggedUser = [], refetch } = useQuery({
     queryKey: ['user'],
     queryFn: async () => {
@@ -36,6 +37,7 @@ const AddArticle = () => {
     }
 })
 
+// load all publisher on dropdown
   const {
     data: publishers = [],
     isLoading,
@@ -56,12 +58,13 @@ const AddArticle = () => {
     setValue
   } = useForm();
 
+  // handle tags
   const handleTagChange = (selectedOption) => {
     setSelectedTags(selectedOption);
     setValue("tags", selectedOption.map((tag) => tag.value));
   };
 
-  // publisher functions
+  // publisher set
   const handlePublisherChange = (selectedOption) => {
     setSelectedPublisher(selectedOption);
     setValue("publisher", selectedOption ? selectedOption.label : null);
@@ -100,7 +103,7 @@ const AddArticle = () => {
       };
   
    
-      const articleRes = await axiosPublic.post("/articles", articleData);
+      const articleRes = await axiosSecure.post("/articles", articleData);
   
       if (articleRes.data.insertedId) {
         reset();

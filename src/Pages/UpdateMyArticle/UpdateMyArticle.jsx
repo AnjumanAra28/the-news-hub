@@ -4,18 +4,19 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../Components/Loading";
 import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const UpdateMyArticle = () => {
   const {title, _id} = useLoaderData()
   const navigate = useNavigate();
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   console.log(_id);
 
    // Fetch current article data
    const { data: article, isLoading, error } = useQuery({
     queryKey: ["article", _id],
     queryFn: async () => {
-      const res = await axiosPublic.get(`/myArticles/${_id}`);
+      const res = await axiosSecure.get(`/myArticles/${_id}`);
       return res.data;
     }
   });
@@ -49,7 +50,7 @@ const UpdateMyArticle = () => {
     e.preventDefault();
 
     try {
-      const res = await axiosPublic.put(`/updateMyArticle/${id}`, articleData);
+      const res = await axiosSecure.put(`/updateMyArticle/${id}`, articleData);
       if (res.status === 200) {
         alert("Article updated successfully!");
         navigate(`/myArticles`);

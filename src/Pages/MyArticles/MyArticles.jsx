@@ -8,6 +8,7 @@ import useAuth from "../../hooks/useAuth";
 import { AiTwotoneEdit } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyArticles = () => {
     const navigate = useNavigate()
@@ -16,17 +17,17 @@ const MyArticles = () => {
     const [declineReason, setDeclineReason] = useState('')
 
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure()
 
     const { data: articles = [], isLoading,refetch, error } = useQuery({
         queryKey: ["myArticles"],
         queryFn: async () => {
-            const res = await axiosPublic.get(`myArticles/${user?.email}`);
+            const res = await axiosSecure.get(`myArticles/${user?.email}`);
             return res.data;
         },
     });
 
-       // Fetch current article data
-  
+       
 
     const handleUpdate = (articleId)=>{
        navigate(`/updateMyArticle/${articleId}`)
@@ -43,7 +44,7 @@ const MyArticles = () => {
                 confirmButtonText: "Yes, delete it!"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    axiosPublic.delete(`/myArticles/${articleId}`)
+                    axiosSecure.delete(`/myArticles/${articleId}`)
                         .then(res => {
                             if (res.data.deletedCount > 0) {
                                 refetch();
@@ -147,10 +148,6 @@ const MyArticles = () => {
                     </div>
                 </div>
             )}
-
-
-        {/* show modal for update article */}
-
         </div>
     );
 };

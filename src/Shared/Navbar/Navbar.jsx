@@ -6,8 +6,9 @@ import { ul } from "framer-motion/client";
 
 
 const Navbar = () => {
-  // const isAdmin = useAdmin()
-  const isAdmin = true;
+const [isAdmin] = useAdmin()
+  console.log(isAdmin);
+  // const isAdmin = true;
   const { user, logOut } = useAuth();
 
   const handleLogOut = () => {
@@ -77,27 +78,7 @@ const Navbar = () => {
         )
       }
 
-      {/* <li>
-        <NavLink
-          to={"/premiumArticles"}
-          className={({ isActive }) =>
-            isActive ? "bg-orange-500 text-white" : ""
-          }
-        >
-          Premium Articles
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to={"/MyArticles"}
-          className={({ isActive }) =>
-            isActive ? "bg-orange-500 text-white" : ""
-          }
-        >
-          My Articles
-        </NavLink>
-      </li> */}
-      {user && isAdmin && (
+      { isAdmin && (
         <li>
           <NavLink
             to={"/dashboard"}
