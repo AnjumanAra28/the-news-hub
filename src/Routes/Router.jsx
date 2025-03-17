@@ -88,7 +88,8 @@ const router = createBrowserRouter([
       },
       {
         path:'/dashboard/allArticles',
-        element:<Articles></Articles>
+        element:<Articles></Articles>,
+        loader:()=>fetch('http://localhost:5000/articleCount')
       },
     ]
   },

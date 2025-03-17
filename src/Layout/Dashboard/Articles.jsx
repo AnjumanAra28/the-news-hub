@@ -6,25 +6,40 @@ import Modal from "../../Components/Modal";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-
-
+import { useLoaderData } from "react-router-dom";
 
 const Articles = () => {
     const axiosSecure = useAxiosSecure();
     const [selectedArticle, setSelectedArticle] = useState(null);
     const [reason, setReason] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
-    
+    const [currentPage, setCurrentPage] = useState(0)
 
-    const { data, isLoading, error, refetch } = useQuery({
-        queryKey: ["articles"],
+    const {count} = useLoaderData()
+    const itemsPerPage = 3;
+    const numberOfPages = Math.ceil(count/itemsPerPage)
+
+    const pages = [...Array(numberOfPages).keys()]
+
+    const handlePaginationPrev =()=>{
+        if(currentPage >0){
+            setCurrentPage(currentPage - 1)
+        }
+    }
+    const handlePaginationNext =()=>{
+        if(currentPage < pages.length - 1){
+            setCurrentPage(currentPage + 1)
+        }
+    }
+
+    const { data : articles =[], isLoading, error, refetch } = useQuery({
+        queryKey: ["articles",currentPage],
         queryFn: async () => {
-            const res = await axiosSecure.get('/allArticles/admin');
+            const res = await axiosSecure.get(`/allArticles/admin?page=${currentPage}&size=${itemsPerPage}`);
             return res.data;
         },
     });
 
-    const articles = data || [];
 
     // approve function
     const handleApprove = async (articleId) => {
@@ -174,6 +189,14 @@ const Articles = () => {
                         ))}
                     </tbody>
                 </table>
+            </div>
+ 
+            <div className="flex justify-center items-center">
+                <button onClick={handlePaginationPrev} className="btn mr-1 mt-4">prev</button>
+                {
+                    pages.map(page=><button onClick={()=>setCurrentPage(page)} className={`btn mr-1 mt-4 ${currentPage === page && 'selected'}`} key={page}>{page}</button>)
+                }
+                <button onClick={handlePaginationNext} className="btn mr-1 mt-4">Next</button>
             </div>
 
             {isModalOpen && (

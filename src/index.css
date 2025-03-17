@@ -5,3 +5,7 @@
 body {
   font-family: "Poppins", serif;
 }
+
+.selected{
+  background-color: orange;
+}

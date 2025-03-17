@@ -2,13 +2,12 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useAdmin from "../../hooks/useAdmin";
-import { ul } from "framer-motion/client";
 
 
 const Navbar = () => {
-const [isAdmin] = useAdmin()
-  console.log(isAdmin);
-  // const isAdmin = true;
+  // const [isAdmin] = useAdmin()
+  //   console.log(isAdmin);
+  const isAdmin = true;
   const { user, logOut } = useAuth();
 
   const handleLogOut = () => {
@@ -78,7 +77,7 @@ const [isAdmin] = useAdmin()
         )
       }
 
-      { isAdmin && (
+      {isAdmin && (
         <li>
           <NavLink
             to={"/dashboard"}
@@ -93,7 +92,7 @@ const [isAdmin] = useAdmin()
     </>
   );
   return (
-    <div className=" navbar bg-base-100">
+    <div className=" navbar bg-black text-white fixed z-50 bg-opacity-40">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

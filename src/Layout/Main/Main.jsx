@@ -6,10 +6,12 @@ const Main = () => {
 
 
     return (
-        <div className="w-11/12 mx-auto">
-             <Navbar></Navbar>
-             <Outlet></Outlet>
-             <Footer></Footer>
+        <div className='flex flex-col min-h-screen'>
+            <Navbar></Navbar>
+            <div className="w-11/12 mx-auto pt-20 flex-grow">
+                <Outlet></Outlet>
+            </div>
+            <Footer></Footer>
         </div>
     );
 };
