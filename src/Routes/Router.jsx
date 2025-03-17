@@ -61,7 +61,7 @@ const router = createBrowserRouter([
       {
         path:'/updateMyArticle/:id',
         element:<PrivateRoutes><UpdateMyArticle></UpdateMyArticle></PrivateRoutes>,
-        loader: ({params}) => fetch(`http://localhost:5000/myArticles/${params.id}`)
+        loader: ({params}) => fetch(`https://the-news-hub-server.vercel.app/myArticles/${params.id}`)
       },
 
       {
@@ -89,7 +89,7 @@ const router = createBrowserRouter([
       {
         path:'/dashboard/allArticles',
         element:<Articles></Articles>,
-        loader:()=>fetch('http://localhost:5000/articleCount')
+        loader:()=>fetch('https://the-news-hub-server.vercel.app/articleCount')
       },
     ]
   },

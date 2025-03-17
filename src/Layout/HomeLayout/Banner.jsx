@@ -29,7 +29,7 @@ const Banner = () => {
 
   if (error) return "An error has occurred: " + error.message;
   return (
-    <div>
+    <div className="">
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={30}
